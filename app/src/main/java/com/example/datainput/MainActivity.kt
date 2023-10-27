@@ -5,6 +5,7 @@ package com.example.datainput
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,9 +35,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,7 +106,7 @@ fun SelectJK(
 ){
     var selectedValue by rememberSaveable { mutableStateOf("") }
 
-    Column (modifier = Modifier.padding(16.dp))
+    Row (modifier = Modifier.padding(16.dp))
     {
         option.forEach{ item ->
             Row (
@@ -135,11 +140,33 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     val uiState by cobaViewModel.uiState.collectAsState()
     dataform = uiState
 
+    Row (modifier = Modifier
+        .fillMaxWidth()
+        .padding(12.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically){
+        Image(painter = painterResource(id = R.drawable.baseline_keyboard_backspace_24), contentDescription = "")
+        Text(text = "Register",
+            fontSize = 18.sp,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold
+            )
+    }
+    Column (modifier = Modifier
+        .fillMaxWidth()
+        .padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally){
+        Text(text = "Create Your Account",
+            color = Color.Black,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold)
+    }
+
     OutlinedTextField(value = textNama,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Nama Lengkap")},
+        label = { Text(text = "Username")},
         onValueChange = {textNama = it})
 
     OutlinedTextField(value = textTlp,
@@ -150,13 +177,6 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         label = { Text(text = "Telpon")},
         onValueChange = {textTlp = it})
 
-    OutlinedTextField(value = textAlm,
-        singleLine = true,
-        shape = MaterialTheme.shapes.large,
-        modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Alamat")},
-        onValueChange = {textAlm = it})
-
     OutlinedTextField(value = textEmail,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
@@ -166,6 +186,13 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
 
     SelectJK(option = datasource.jenis.map { id -> context.resources.getString(id)},
         onSelectionChange = {cobaViewModel.setJenisK(it)})
+
+    OutlinedTextField(value = textAlm,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Alamat")},
+        onValueChange = {textAlm = it})
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
