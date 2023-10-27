@@ -126,6 +126,33 @@ fun SelectJK(
         }
     }
 }
+@Composable
+fun SelectMenikah(
+    option: List<String>,
+    onSelectionChange: (String) ->Unit = {}
+){
+    var selectedValue by rememberSaveable { mutableStateOf("") }
+
+    Row (modifier = Modifier.padding(16.dp))
+    {
+        option.forEach{ item ->
+            Row (
+                modifier = Modifier.selectable(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChange(item)
+                    }
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                RadioButton(selected = selectedValue == item, onClick = {selectedValue = item
+                    onSelectionChange(item)})
+                Text(item)
+            }
+        }
+    }
+}
 
 @Composable
 fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
@@ -186,6 +213,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
 
     SelectJK(option = datasource.jenis.map { id -> context.resources.getString(id)},
         onSelectionChange = {cobaViewModel.setJenisK(it)})
+    SelectMenikah(option = datasource.nikah.map { id -> context.resources.getString(id)},
+        onSelectionChange = {cobaViewModel.setJenisK(it)})
 
     OutlinedTextField(value = textAlm,
         singleLine = true,
@@ -196,19 +225,19 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama,textTlp,dataform.sex,textAlm)
+            cobaViewModel.insertData(dataform.sex,dataform.nikah,textAlm,textEmail)
         }){
         Text(text = stringResource(R.string.submit),
             fontSize = 16.sp)
     }
-    Spacer(modifier = Modifier.height(100.dp))
+    Spacer(modifier = Modifier.height(10.dp))
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
         jenisnya = cobaViewModel.jenisKl,
         alamatnya = cobaViewModel.alamat,
         emailnya = cobaViewModel.email,
-        statusnya = cobaViewModel.status)}
+        statusnya = cobaViewModel.status,)}
 
 @Composable
 fun TampilLayout(

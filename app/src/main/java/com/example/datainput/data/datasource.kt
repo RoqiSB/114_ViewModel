@@ -7,4 +7,8 @@ object datasource {
         R.string.laki,
         R.string.wanita
     )
+    val nikah = listOf(
+        R.string.belummenikah,
+        R.string.menikah
+    )
 }
