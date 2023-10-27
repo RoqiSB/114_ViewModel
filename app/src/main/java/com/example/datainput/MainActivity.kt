@@ -156,6 +156,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         label = { Text(text = "Alamat")},
         onValueChange = {textAlm = it})
 
+
+
     SelectJK(option = datasource.jenis.map { id -> context.resources.getString(id)},
         onSelectionChange = {cobaViewModel.setJenisK(it)})
     Button(
