@@ -71,7 +71,7 @@ fun GreetingPreview() {
     }
 }
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String)
+fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String, emailnya: String, statusnya: String)
 {
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
@@ -79,16 +79,16 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: S
         ),
         modifier = Modifier.fillMaxWidth()
     ){
-        Text(text = "Nama : " + namanya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-        )
-        Text(text = "Telepon : " + telponnya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-        )
         Text(text = "Jenis Kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
+        Text(text = "Status : " + statusnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        )
         Text(text = "Alamat : " + alamatnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        )
+        Text(text = "Email : " + emailnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
 
@@ -179,7 +179,9 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
         jenisnya = cobaViewModel.jenisKl,
-        alamatnya = cobaViewModel.alamat,)}
+        alamatnya = cobaViewModel.alamat,
+        emailnya = cobaViewModel.email,
+        statusnya = cobaViewModel.status)}
 
 @Composable
 fun TampilLayout(
